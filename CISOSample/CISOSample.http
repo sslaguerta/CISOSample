@@ -1,0 +1,6 @@
+@CISOSample_HostAddress = http://localhost:5255
+
+GET {{CISOSample_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
