@@ -1,4 +1,6 @@
 using CISOSample.Data;
+using CISOSample.Interface;
+using CISOSample.Service;
 using Microsoft.EntityFrameworkCore;
 
 namespace CISOSample
@@ -26,6 +28,9 @@ namespace CISOSample
             //DbContext
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            //Services
+            builder.Services.AddScoped<IUserService, UserService>();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
