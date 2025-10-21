@@ -17,11 +17,12 @@ namespace CISOSample
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowReactApp",
+                options.AddPolicy("AllowAll",
                     policy => policy
                     .WithOrigins("http://localhost:5173")
                     .AllowAnyHeader()
-                    .AllowAnyMethod());
+                    .AllowAnyMethod()
+                    .AllowCredentials());
 
             });
 
@@ -44,7 +45,7 @@ namespace CISOSample
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            app.UseCors("AllowReactApp");
+            app.UseCors("AllowAll");
             app.UseHttpsRedirection();
 
             app.UseAuthorization();

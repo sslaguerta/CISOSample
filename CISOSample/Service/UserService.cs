@@ -7,6 +7,7 @@ namespace CISOSample.Service
 {
     public class UserService : IUserService
     {
+        #region Context
         private readonly AppDbContext _context;
 
 
@@ -14,6 +15,7 @@ namespace CISOSample.Service
         {
             _context = context;
         }
+        #endregion
 
         #region GetUers
         public IList<UserViewModel> GetUsers()
@@ -105,5 +107,31 @@ namespace CISOSample.Service
             return viewModel;
         }
         #endregion
+
+        public bool ChangeStatus(string command, int id)
+        {
+            var user = _context.Users.FirstOrDefault(x => x.Id == id);
+            if (user == null)
+            {
+                return false;
+            }
+
+            switch (command)
+            {
+                case "Approved":
+                    user.Status = Status.Approved;
+                    break;
+                case "Rejected":
+                    user.Status = Status.Rejected;
+                    break;
+                case "ForConsideration":
+                    user.Status = Status.ForConsideration;
+                    break;
+                default:
+                    return false;
+            }
+            _context.SaveChanges();
+            return true;
+        }
     }
 }

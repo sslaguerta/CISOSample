@@ -8,12 +8,16 @@ namespace CISOSample.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        #region fields
         private readonly IUserService _userService;
+        #endregion
 
+        #region Constructors
         public UserController(IUserService userService)
         {
             _userService = userService;
         }
+        #endregion
 
         #region GetUers
         [HttpGet]
@@ -52,5 +56,17 @@ namespace CISOSample.Controllers
             return Ok(result);
         }
         #endregion
+
+        [HttpPut("{id}")]
+        public IActionResult ChangeStatus(int id, string command)
+        {
+            var result = _userService.ChangeStatus(command, id);
+
+            if (!result)
+            {
+                return BadRequest(new { message = "Invalid Request Please try again" });
+            }
+            return Ok(new { message = $"User status succesfully changed to '{command}'" });
+        }
     }
 }

@@ -10,5 +10,7 @@ namespace CISOSample.Interface
         IList<UserViewModel> GetRejectedUsers();
         UserViewModel ViewUser(int id);
 
+        bool ChangeStatus(string command, int id);
+
     }
 }
